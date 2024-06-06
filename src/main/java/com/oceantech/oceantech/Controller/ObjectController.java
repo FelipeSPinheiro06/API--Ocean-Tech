@@ -77,9 +77,14 @@ public class ObjectController {
         @ApiResponse(responseCode = "400", description = "Validação falhou. Verifique os dados enviados no corpo da requisição"),
         @ApiResponse(responseCode = "401", description = "Não autorizado. Realize a autenticação em /login")
     })
-    public Object postMethod(@RequestBody @Valid ObjectRequest object) {
+    public ResponseEntity<EntityModel<Object>> postMethod(@RequestBody @Valid ObjectRequest object) {
         log.info("Cadastrando os objetos reciclados...");
-        return objectService.postObject(object);
+        
+        Object postedObject = objectService.postObject(object);
+        
+        return ResponseEntity
+                    .created(postedObject.toEntityModel().getRequiredLink("self").toUri())
+                    .body(postedObject.toEntityModel());
     }
             
     @PutMapping("{id}")
@@ -93,7 +98,7 @@ public class ObjectController {
         @ApiResponse(responseCode = "401", description = "Não autorizado. Realize a autenticação em /login"),
         @ApiResponse(responseCode = "404", description = "Não existe objeto com o id informado")
     })
-    public Object putMethod(@PathVariable Long id, @RequestBody @Valid ObjectRequest object) {
+    public ResponseEntity<EntityModel<Object>> putMethod(@PathVariable Long id, @RequestBody @Valid ObjectRequest object) {
         log.info("Atualizando os objetos com o id " + id);
         return objectService.updateObject(id, object);
     }
@@ -125,9 +130,11 @@ public class ObjectController {
         @ApiResponse(responseCode = "401", description = "Não autorizado. Realize a autenticação em /login"),
         @ApiResponse(responseCode = "404", description = "Não existe objeto com o id informado")
     })
-    public Object getByID(@PathVariable Long id) {
+    public EntityModel<Object> getByID(@PathVariable Long id) {
         log.info("Pegando o object com o id " + id);
-        return objectService.getObjectByID(id);
+        var object = objectService.getObjectByID(id);
+
+        return object.toEntityModel();
     }
                         
                         

@@ -4,6 +4,7 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +13,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
@@ -70,11 +72,13 @@ public class ObjectService {
         return objectRepository.save(object);
     }
 
-    public Object updateObject(Long id, ObjectRequest objectRequest) {
-        Object object = constructObject(objectRequest);
+    public ResponseEntity<EntityModel<Object>> updateObject(Long id, ObjectRequest objectRequest) {
         checkExistence(id);
+        Object object = constructObject(objectRequest);
+
         object.setId(id);
-        return objectRepository.save(object);
+        objectRepository.save(object);
+        return ResponseEntity.ok(object.toEntityModel());
     }
 
     public void deleteObject(Long id) {
