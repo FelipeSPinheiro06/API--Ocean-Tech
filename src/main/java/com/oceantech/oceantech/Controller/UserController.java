@@ -5,6 +5,7 @@ import static org.springframework.http.HttpStatus.NO_CONTENT;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,6 +37,7 @@ import lombok.extern.slf4j.Slf4j;
 @Tag(name = "User")
 public class UserController {
 
+    @Autowired
     UserService userService;
 
     public UserController(UserService userService) {

@@ -4,6 +4,7 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -14,6 +15,7 @@ import com.oceantech.oceantech.Repository.UserRepository;
 @Service
 public class UserService {
     
+    @Autowired
     UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
