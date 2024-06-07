@@ -13,7 +13,7 @@ import io.swagger.v3.oas.annotations.info.Info;
 @SpringBootApplication
 @Controller
 @EnableCaching
-@EnableJpaRepositories(basePackages = "com.oceantech.oceantech.repository")
+@EnableJpaRepositories(basePackages = "com.oceantech.oceantech.Repository")
 @OpenAPIDefinition(
 	info = @Info(
 		title = "Ocean Tech",
