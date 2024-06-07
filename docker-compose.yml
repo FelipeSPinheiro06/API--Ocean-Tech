@@ -7,7 +7,7 @@ services:
     restart: always
     environment:
       MYSQL_USER: pgr
-      MYSQL_PASSWORD: pgr2024
+      MYSQL_PASSWORD: pgr2024@!
       MYSQL_DATABASE: OceanTechDatabase
       MYSQL_ROOT_PASSWORD: root
     command: --default-authentication-plugin=mysql_native_password
@@ -28,7 +28,7 @@ services:
       DB_PORT: 3306
       DB_NAME: OceanTechDatabase
       DB_USER: pgr
-      DB_PASSWORD: pgr2024 
+      DB_PASSWORD: pgr2024@! 
       AUTH_PLUGIN: mysql_native_password
     depends_on:
       - database
